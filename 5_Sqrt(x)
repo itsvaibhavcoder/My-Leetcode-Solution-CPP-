@@ -1,0 +1,35 @@
+//  Given a non-negative integer x, return the square root of x rounded down to the nearest integer. The returned integer should be non-negative as well.
+
+ // You must not use any built-in exponent function or operator.
+ 
+ // code here 
+ 
+ class Solution {
+public:
+    
+    long long int  bs(int n){
+        
+        int start = 0;
+        int end = n;
+        long long int mid = start + (end-start)/2;
+        
+        long long int ans = -1;
+        while(start<=end){
+            
+        long long int square = mid * mid;
+            
+            if( square==n){
+                return mid;
+            }   
+            if(square < n){
+                ans = mid;
+                start = mid + 1;
+               }
+            else
+            {
+                end = mid - 1;
+               }
+             mid = start + (end-start)/2;
+        }
+           return ans;
+    }
