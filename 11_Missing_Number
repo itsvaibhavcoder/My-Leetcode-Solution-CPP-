@@ -1,0 +1,85 @@
+Approach 1 : Bruteforce Approach
+
+By using nested for loop check presence of every element in given array
+
+Time Complexity : O(n^2)
+Space Complexity : Constant O(1)
+
+Approach 2 : By using Sorting
+
+Sort the given array
+check index of array is matching to the array element if not return that index
+Here We can also check the difference between two adjacent element in array i.e nums[i] and nums[i-1]
+it should be always one 1 if it is not return that index which will be missing number .
+
+Time Complexity For Both Approaches : O(n log(n))
+Space Complexity : constant Space O(1)
+
+Approach 3 : Using Hashmap
+
+store the Frequency of every element in frequency array
+check the frequency of every element if it is 0 for any element return its index that will be missing number
+Time Complexity : O(n)
+Space Complexity : O(n) Extra space is used to store frequency of every element
+
+Approach 4 : By using required sum - estimated sum
+
+calculate the sum of first n natural number ( here n is the size of given array )
+calculate the actual sum of array
+return sum of n natural number - sum of arraty
+Code :
+
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int n = nums.size();
+        // calculate sum of first n natural numbers 
+        
+        int sum_n_natural =  n*(n+1)/2;
+        
+        int nums_sum =0;
+        
+        for(int i=0; i<n; i++){
+            nums_sum += nums[i];
+        }
+        
+        return sum_n_natural - nums_sum;
+    }
+};
+
+Time Complexity : O(n)
+Space Complexity : Constant O(1)
+
+Note : This solution is acceptable but it is not optimal when the array contain larger number it may cause overflow
+So , Now Let us Discuss Most Optimized Solution.
+
+Approach 5 : Bit Manipulation
+
+Intuition : We Know that the xor of same element is zero , that concept we will use here
+
+varialble result (any) assign it to any element in array
+Xor it with 0 to n number
+parallerly Xor it with element in array
+Finally Return it
+Code :
+
+class Solution {
+public:
+   int missingNumber(vector<int>& nums) {
+       int result = nums.size();
+       int i=0;
+       
+       for(int num:nums){
+           result ^= num;
+           result ^= i;
+           i++;
+       }
+       
+       return result;
+   }
+};
+Time Complexity : O(n)
+Space Complexity : Constant O(1)
+
+/* Plz upvote Solution if you like it , it really motivate me to coding and learning new coding stuffs .
+Thank you so much */
