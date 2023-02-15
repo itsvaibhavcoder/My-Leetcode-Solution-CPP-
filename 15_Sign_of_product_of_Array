@@ -1,0 +1,94 @@
+/ * There is a function signFunc(x) that returns:
+
+1 if x is positive.
+-1 if x is negative.
+0 if x is equal to 0.
+You are given an integer array nums. Let product be the product of all values in the array nums.
+
+Return signFunc(product).
+
+ 
+
+Example 1:
+
+Input: nums = [-1,-2,-3,-4,3,2,1]
+Output: 1
+Explanation: The product of all values in the array is 144, and signFunc(144) = 1
+
+Example 2:
+
+Input: nums = [1,5,0,2,-3]
+Output: 0
+Explanation: The product of all values in the array is 0, and signFunc(0) = 0
+
+Example 3:
+
+Input: nums = [-1,1,-1,1,-1]
+Output: -1
+Explanation: The product of all values in the array is -1, and signFunc(-1) = -1
+ 
+
+Constraints:
+
+1 <= nums.length <= 1000
+-100 <= nums[i] <= 100
+*/
+
+Approch 1 :
+
+Simply find the product of intire array and check all three given condition
+
+Time Complexity :  O(n) 
+Space Complexity : Constant 
+
+code : 
+
+class Solution {
+public:
+    int arraySign(vector<int>& nums) {
+        int n = nums.size();
+        
+        long long prod = 1;
+        
+        for(auto num : nums){
+            prod = prod * num;
+        }
+        
+        if(prod>0){
+            return 1;
+        } 
+       else if(prod<0) 
+       {
+           return -1;
+       }
+        else return 0;
+    }
+};
+
+Note : This code is not accepted for large arrray values ( overflow Occurs)
+
+Approch 2 :
+
+1) Iterate over the array and if you find any zero in array simply return the 0 .
+2) count the negative element in array if you found add count of negative element return -1 . ow return 1 ( in case of even number of negative number )
+
+Time Complexity :  O(n) 
+Space Complexity : Constant 
+
+Code : 
+
+class Solution {
+public:
+    int arraySign(vector<int>& nums) {
+        int n = nums.size();
+        int cnt_neg = 0;
+        for(auto num : nums){
+            if(num == 0) return 0;
+            
+            if(num<0) cnt_neg++;
+      }
+        
+        if(cnt_neg %2 == 1) return -1;
+        else return 1;
+    }
+};
