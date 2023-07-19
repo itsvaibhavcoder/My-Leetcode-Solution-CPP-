@@ -1,0 +1,58 @@
+// Leetcode Problem
+
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+
+Example 1:
+Input: prices = [7,1,5,3,6,4]
+Output: 5
+Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+
+Approach 1 :
+
+Bruteforce Approach : 1) Select the one stock and buy it on other prices available it will use two for loop 
+Time Complexity : O(n*n) 
+Space Complexity : Constant 
+
+Approach 2:
+
+Create the extra array which will store the Greatest Element right side of the particular element and then check maxProfit by subtracting the respective price from max  element right of that element 
+Time Complexity : O(n)
+Space Complexity : O(n)
+
+Approach : 3 
+In this approach Maintain the 2 variable minSofar and maxProfit 
+consider the first element as minSofar and regulary update it while traversing the array by doing  
+
+minSofar = min(minSofar, prices[i])
+then calculate profit by , profit = prices[i]-minSofar
+and then update maxProfit = max(maxProfit , profit)
+at last maxProfit will contain the required answer
+
+Time Complexity : O(n)
+Space Complexity : Constant Space 
+
+Code :
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        // 7 1 5 3 6 4
+        int n = prices.size();
+
+        int minSofar = prices[0]; // consider 1st element as minimum element so far
+
+        int maxProfit = 0;
+
+        for(int i=0; i<n; i++){
+          minSofar = min(minSofar, prices[i]); 
+          int profit = prices[i]-minSofar;
+          maxProfit = max(maxProfit, profit);
+        }
+        return maxProfit;
+    }
+};
+
