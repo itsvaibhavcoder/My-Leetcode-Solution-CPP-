@@ -1,0 +1,43 @@
+For two strings s and t, we say "t divides s" if and only if s = t + ... + t (i.e., t is concatenated with itself one or more times).
+Given two strings str1 and str2, return the largest string x such that x divides both str1 and str2.
+
+ 
+
+Example 1:
+
+Input: str1 = "ABCABC", str2 = "ABC"
+Output: "ABC"
+
+Example 2:
+
+Input: str1 = "ABABAB", str2 = "ABAB"
+Output: "AB"
+
+Example 3:
+
+Input: str1 = "LEET", str2 = "CODE"
+Output: ""
+ 
+Constraints:
+
+1 <= str1.length, str2.length <= 1000
+str1 and str2 consist of English uppercase letters.
+
+Code :
+
+class Solution {
+public:
+    string gcdOfStrings(string str1, string str2) {
+        // Check if the concatenation of str1 and str2 is equal to the concatenation of str2 and str1
+        if (str1 + str2 == str2 + str1) {
+            // If the above condition is true, find the greatest common divisor of the lengths of str1 and str2
+            int gcd_length = gcd(size(str1), size(str2));
+
+            // Return a substring of str1 starting from index 0 with a length equal to the gcd_length
+            return str1.substr(0, gcd_length);
+        } else {
+            // If the condition is false, return an empty string, as there is no common divisor
+            return "";
+        }
+    }
+};
