@@ -1,0 +1,96 @@
+Two strings are considered close if you can attain one from the other using the following operations:
+Operation 1: Swap any two existing characters.
+For example, abcde -> aecdb
+Operation 2: Transform every occurrence of one existing character into another existing character, and do the same with the other character.
+For example, aacabb -> bbcbaa (all a's turn into b's, and all b's turn into a's)
+You can use the operations on either string as many times as necessary.
+
+Given two strings, word1 and word2, return true if word1 and word2 are close, and false otherwise.
+
+Example 1:
+
+Input: word1 = "abc", word2 = "bca"
+Output: true
+Explanation: You can attain word2 from word1 in 2 operations.
+Apply Operation 1: "abc" -> "acb"
+Apply Operation 1: "acb" -> "bca"
+
+Example 2:
+
+Input: word1 = "a", word2 = "aa"
+Output: false
+Explanation: It is impossible to attain word2 from word1, or vice versa, in any number of operations.
+
+Example 3:
+
+Input: word1 = "cabbba", word2 = "abbccc"
+Output: true
+Explanation: You can attain word2 from word1 in 3 operations.
+Apply Operation 1: "cabbba" -> "caabbb"
+Apply Operation 2: "caabbb" -> "baaccc"
+Apply Operation 2: "baaccc" -> "abbccc"
+ 
+
+Constraints:
+
+1 <= word1.length, word2.length <= 105
+word1 and word2 contain only lowercase English letters.
+
+Solution :
+
+Intuition
+The goal is to determine if two strings can be transformed into each other by satisfying size and character frequency conditions.
+
+Approach
+If the sizes of word1 and word2 are different, return false.
+Create sets charSet1 and charSet2 to hold unique characters from word1 and word2.
+Create arrays charFreq1 and charFreq2 to store character frequencies (26 slots for each letter.
+Iterate through characters of word1 and word2:
+Add characters to corresponding sets.
+Update character frequency arrays.
+Sort charFreq1 and charFreq2 arrays.
+Compare charSet1 and charSet2, and charFreq1 and charFreq2.
+If sets and sorted frequency arrays match, return true; else, return false.
+
+Complexity
+Time complexity: O(n)
+
+Space complexity: O(n)
+
+Code :
+class Solution {
+public:
+    bool closeStrings(string word1, string word2) {
+        // Check if the sizes of the two strings are different, return false if they are
+        if (word1.size() != word2.size())
+            return false;
+
+        // Create sets to store the unique characters in both words
+        unordered_set<char> charSet1, charSet2;
+        
+        // Create arrays to store the frequency of each character in both words
+        vector<int> charFreq1(26, 0), charFreq2(26, 0);
+
+        // Iterate through the characters of word1 and word2
+        for (int i = 0; i < word1.size(); i++) {
+            // Insert characters into their respective sets
+            charSet1.insert(word1[i]);
+            charSet2.insert(word2[i]);
+            
+            // Update the frequency arrays for the corresponding characters
+            charFreq1[word1[i] - 'a']++;
+            charFreq2[word2[i] - 'a']++;
+        }
+
+        // Sort the frequency arrays for both words
+        sort(charFreq1.begin(), charFreq1.end());
+        sort(charFreq2.begin(), charFreq2.end());
+
+        // Compare the sets and sorted frequency arrays
+        if (charSet1 == charSet2 && charFreq1 == charFreq2)
+            return true;
+        else
+            return false;
+    }
+};
+
