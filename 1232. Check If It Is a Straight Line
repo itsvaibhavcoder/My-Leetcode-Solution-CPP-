@@ -1,0 +1,43 @@
+You are given an array coordinates, coordinates[i] = [x, y], where [x, y] represents the coordinate of a point. Check if these points make a straight line in the XY plane.
+
+Input: coordinates = [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7]]
+Output: true
+
+Input: coordinates = [[1,1],[2,2],[3,4],[4,5],[5,6],[7,7]]
+Output: false
+
+2 <= coordinates.length <= 1000
+coordinates[i].length == 2
+-10^4 <= coordinates[i][0], coordinates[i][1] <= 10^4
+coordinates contains no duplicate point.
+
+Simple Math :
+
+The point is if we take points p1(x, y), p2(x1, y1), p3(x3, y3), slopes of any two pairs is same then p1, p2, p3 lies on same line.
+slope from p1 and p2 is y - y1 / x - x1
+slope from p2 and p3 is y2 - y1 / x2 - x1
+if these two slopes equal, then p1, p2, p3 lies on same line.
+
+Code :
+
+class Solution {
+public:
+    bool checkStraightLine(vector<vector<int>>& coordinates) {
+        int points = coordinates.size();
+        int xdiff = coordinates[1][0]-coordinates[0][0];
+        int ydiff = coordinates[1][1]-coordinates[0][1];
+        int curr_xdiff,curr_ydiff;
+
+         for(int i=2;i<points;++i)
+         {
+        curr_xdiff = coordinates[i][0]-coordinates[i-1][0];
+        curr_ydiff = coordinates[i][1]-coordinates[i-1][1];
+        if(ydiff*curr_xdiff != xdiff*curr_ydiff)
+            return false;
+         }
+    return true;
+    }
+};
+
+
+
